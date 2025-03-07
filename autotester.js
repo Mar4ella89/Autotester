@@ -1,12 +1,12 @@
-console.log("Autotester is started!")
+console.log("Autotester is started!!!")
 
 // Проверка наличия rel="preloader"
 function checkPreloader() {
     const preloader = document.querySelector('link[rel="preloader"]');
     if (preloader) {
-      console.log('Предзагрузчик найден!');
+      console.log('❌ preloader найден!');
     } else {
-      console.log('Предзагрузчик не найден.');
+      console.log('✅ preloader не найден.');
     }
   }
   
@@ -14,9 +14,9 @@ function checkPreloader() {
   function checkPreconnect() {
     const preconnect = document.querySelector('link[rel="preconnect"]');
     if (preconnect) {
-      console.log('Preconnect найден!');
+      console.log('❌ Preconnect найден!');
     } else {
-      console.log('Preconnect не найден.');
+      console.log('✅ Preconnect не найден.');
     }
   }
 
@@ -24,9 +24,9 @@ function checkPreloader() {
 function checkNoscript() {
     const noscript = document.querySelector('noscript');
     if (noscript) {
-      console.log('<noscript> найден!');
+      console.log('❌ <noscript> найден!');
     } else {
-      console.log('<noscript> не найден.');
+      console.log('✅ <noscript> не найден.');
     }
   }
 
@@ -34,9 +34,9 @@ function checkNoscript() {
 function checkIframe() {
     const iframe = document.querySelector('iframe');
     if (iframe) {
-      console.log('<iframe> найден!');
+      console.log('❌ <iframe> найден!');
     } else {
-      console.log('<iframe> не найден.');
+      console.log('✅ <iframe> не найден.');
     }
   }
 
