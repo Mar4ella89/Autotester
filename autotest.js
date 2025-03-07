@@ -1,1 +1,1 @@
-console.log("Start");
+console.log("Start, Autotest is connected!");
