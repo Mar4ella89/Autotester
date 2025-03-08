@@ -188,7 +188,7 @@ function showModalReport(report) {
 
 // Функция удаления тега <script>
 function removeScriptTag() {
-  const scriptTag = document.querySelector('script[src="./autotest.js"]');
+  const scriptTag = document.querySelector('script[src="https://cdn.jsdelivr.net/gh/Mar4ella89/Autotester@main/autotest_1.0.js"]');
   if (scriptTag) scriptTag.remove();
 }
 
