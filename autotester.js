@@ -47,3 +47,6 @@ function runTests() {
     checkNoscript();
     checkIframe();
   }
+
+
+  console.log("Autotester is ended!!!")
