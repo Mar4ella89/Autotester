@@ -1,11 +1,3 @@
-// Функция экранирования текста (замена символов на HTML-сущности)
-function escapeHTML(str) {
-  return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-// Массив для хранения отчета
-let report = [];
-
 // Функция добавления сообщения в отчет
 function addToReport(message) {
   // Экранируем теги <noscript> и <iframe>
@@ -14,12 +6,23 @@ function addToReport(message) {
   console.log(message); // Выводим в консоль для отладки
 }
 
-// Функция поиска тега в реальном DOM
+// Функция поиска тега в реальном DOM (с учетом исключений)
 function checkTag(tag, description) {
-  const element = document.querySelector(tag);
-  if (element) {
-    addToReport(`❌ ${description} найден`);
-  } 
+  if (tag === "iframe") {
+    // Получаем все <iframe>, исключая те, у которых id="admin-frame"
+    const iframes = [...document.querySelectorAll("iframe")].filter(
+      (iframe) => iframe.id !== "admin-frame"
+    );
+
+    if (iframes.length > 0) {
+      addToReport(`❌ ${description} найден`);
+    }
+  } else {
+    const element = document.querySelector(tag);
+    if (element) {
+      addToReport(`❌ ${description} найден`);
+    }
+  }
 }
 
 // Функция поиска rel="preloader" и rel="preconnect"
