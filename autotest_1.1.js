@@ -217,7 +217,7 @@ if (modal) {
 // Функция удаления тега <script>
 function removeScriptTag() {
   const scriptTag = document.querySelector(
-    'script[src="https://cdn.jsdelivr.net/gh/Mar4ella89/Autotester@main/autotest_1.0.js"]'
+    'script[src="https://cdn.jsdelivr.net/gh/Mar4ella89/Autotester@main/autotest_1.1.js"]'
   );
   if (scriptTag) scriptTag.remove();
 }

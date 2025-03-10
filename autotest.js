@@ -1,3 +1,11 @@
+// Функция экранирования текста (замена символов на HTML-сущности)
+function escapeHTML(str) {
+  return str.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Массив для хранения отчета
+let report = [];
+
 // Функция добавления сообщения в отчет
 function addToReport(message) {
   // Экранируем теги <noscript> и <iframe>
@@ -164,41 +172,67 @@ function showModalReport(report) {
     </div>
   `;
 
-  // Добавляем модальное окно в body
-  document.body.insertAdjacentHTML("beforeend", modalHTML);
 
-  // Получаем элементы окна
-  const modal = document.getElementById("autotest-modal");
+ // Добавляем модальное окно в body
+document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+// Получаем элементы окна
+const modal = document.getElementById("autotest-modal");
+
+if (modal) {
   const closeButton = modal.querySelector(".close-button");
   const okButton = modal.querySelector(".ok-button");
 
   // Функция закрытия окна
   function closeModal() {
-    modal.remove();
-    removeScriptTag(); // Удаляем тег <script>
+    if (modal) {
+      // Удаляем обработчики событий перед удалением
+      document.removeEventListener("keydown", handleEscape);
+      modal.removeEventListener("click", handleOutsideClick);
+      if (closeButton) closeButton.removeEventListener("click", closeModal);
+      if (okButton) okButton.removeEventListener("click", closeModal);
+
+      modal.remove(); // Удаляем модалку
+      removeScriptTag(); // Удаляем тег <script>
+    }
   }
 
-  // События закрытия окна
-  closeButton.addEventListener("click", closeModal);
-  okButton.addEventListener("click", closeModal);
-  modal.addEventListener("click", (event) => {
+  // Закрытие по клику вне модального окна
+  function handleOutsideClick(event) {
     if (event.target === modal) closeModal();
-  });
-  document.addEventListener("keydown", (event) => {
+  }
+
+  // Закрытие по клавише Escape
+  function handleEscape(event) {
     if (event.key === "Escape") closeModal();
-  });
+  }
+
+  // Назначаем обработчики событий
+  if (closeButton) closeButton.addEventListener("click", closeModal);
+  if (okButton) okButton.addEventListener("click", closeModal);
+  modal.addEventListener("click", handleOutsideClick);
+  document.addEventListener("keydown", handleEscape);
 }
 
 // Функция удаления тега <script>
 function removeScriptTag() {
-  const scriptTag = document.querySelector('script[src="./autotest.js"]');
+  const scriptTag = document.querySelector(
+    'script[src="./autotest_1.0.js"]'
+  );
   if (scriptTag) scriptTag.remove();
 }
+}
+
+
 
 // Функция инжекта стилей для модального окна
 function injectStyles() {
   const style = document.createElement("style");
   style.innerHTML = `
+.modal-content {
+  font-family: monospace !important;
+}
+
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -215,7 +249,7 @@ function injectStyles() {
       background: white;
       padding: 20px;
       border-radius: 8px;
-      width: 400px;
+      width: 400px !important;
       max-width: 90%;
       text-align: center;
       box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
