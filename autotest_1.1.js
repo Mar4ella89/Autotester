@@ -63,6 +63,7 @@ function checkInComments() {
   // Проверяем, есть ли внутри комментариев нужные теги
   const checks = [
     { regex: /<link[^>]*rel=["']?preloader["']?[^>]*>/i, name: 'link[rel="preloader"]' },
+    { regex: /<link[^>]*rel=["']?preloader["']?[^>]*>/i, name: 'link[rel="preload"]' },
     { regex: /<link[^>]*rel=["']?preconnect["']?[^>]*>/i, name: 'link[rel="preconnect"]' },
     { regex: /<noscript>/i, name: '<noscript>' },
     { regex: /<iframe>/i, name: '<iframe>' }
@@ -144,6 +145,7 @@ function runTests() {
   addToReport("=== Начало тестов ===");
 
   checkLinkRel("preloader");
+  checkLinkRel("preload");
   checkLinkRel("preconnect");
   checkTag("noscript", "<noscript>");
   checkTag("iframe", "<iframe>");
